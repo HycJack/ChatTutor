@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import { MarkdownRender } from 'vue-renderer-markdown'
-
-type UserMessage = {
-  type: 'user'
-  content: string
-}
-type AssistantMessage = {
-  type: 'assistant'
-  content: string
-}
-export type Message = (UserMessage | AssistantMessage) & { id: string }
+import type { Message } from '#shared/types'
 
 defineProps<{
   messages: Message[]
@@ -20,7 +11,7 @@ const input = defineModel<string>('input', { required: true })
 
 <template>
   <div class="flex flex-col size-full">
-    <div class="w-full h-full flex flex-col gap-2">
+    <div class="w-full h-full flex flex-col gap-2 overflow-y-auto">
       <div
         v-for="message in messages"
         :key="message.id"
