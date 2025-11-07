@@ -45,7 +45,8 @@ export const getPageTools = async (pages: Page[]) => {
         message: 'Page created successfully',
         page: id,
       }
-    }
+    },
+    strict: false
   })
 
   const note = tool({
@@ -69,7 +70,8 @@ export const getPageTools = async (pages: Page[]) => {
         message: 'Note added successfully',
         page: page,
       }
-    }
+    },
+    strict: false
   })
 
   return await Promise.all([createCanvas, note]) as Tool[]

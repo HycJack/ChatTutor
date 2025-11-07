@@ -28,7 +28,8 @@ export const getActionTools = async (pages: Page[]) => {
         page: targetPage.id,
         actions: actions.length
       }
-    }
+    },
+    strict: false
   })
 
   return await Promise.all([act]) as Tool[]
