@@ -20,14 +20,22 @@ const emits = defineEmits<{
   (e: 'send', input: string, resources: Resource[]): void
 }>()
 
-const send = (event: KeyboardEvent) => {
+const sendUserInput = () => {
+  blur()
+  emits('send', input.value, resources.value)
+}
+// Using short cut to send message
+const shortCutSend = (event: KeyboardEvent) => {
   // cmd+enter (Mac) or ctrl+enter (Windows/Linux)
   if (running) return
   if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
     event.preventDefault()
-    blur()
-    emits('send', input.value, resources.value)
+    sendUserInput()
   }
+}
+// Click to send the message
+const send = () => {
+  sendUserInput()
 }
 
 export type ImageResource = {
@@ -158,7 +166,7 @@ defineExpose({
       ref="textareaRef"
       v-model="input"
       class="size-full bg-transparent outline-none resize-none text-gray-500"
-      @keydown="send"
+      @keydown="shortCutSend"
     />
     <div
       v-if="resources.length > 0"
